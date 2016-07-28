@@ -48,7 +48,7 @@ body {
   background-color: aquamarine;
 }
 .info {
-  background-color: beige;
+  background-color: darkgrey;
 }
 .settings {
   background-color: rebeccapurple;  
@@ -69,4 +69,32 @@ h1, h2 {
 .child {
   display: table-cell;
   vertical-align: middle;
+}
+.col-xs-12, col-md-6 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* media queries */
+/* from tablets horizontally */
+@media screen and (min-width: 769px) {
+  .hints {
+    height: 100vh;
+    width: 50%;
+  }
+  .buttons {
+    height: 100vh;
+    width: 50%;
+  }
+}
+/* any mobile device in orientation landscape */
+@media screen and (orientation: landscape) {
+  .hints {
+    height: 100vh;
+    width: 50%;
+  }
+  .buttons {
+    height: 100vh;
+    width: 50%;
+  }
 }
