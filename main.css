@@ -58,6 +58,15 @@ h1, h2 {
   padding: 0.5em 0 0;
 }
 .restart {
-  display: block;
   margin-top: 1em;
+}
+.strict-tgl {
+  margin-top: 0;
+}
+.parent {
+  display: table;
+}
+.child {
+  display: table-cell;
+  vertical-align: middle;
 }

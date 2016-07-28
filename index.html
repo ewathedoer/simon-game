@@ -16,6 +16,7 @@
 <body class="container-fluid text-center">
   <div class="row">
     <section class="hints">
+      
       <div class="start box">
         <h1>Simon Game</h1>
         <button id="play-btn" class="btn btn-success btn-lg" type="button">Start Playing</button>
@@ -26,18 +27,20 @@
         <h3 id="not">Notification area</h3>
       </div>
       
-      <div class="settings box">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" data-toggle="toggle" data-onstyle="info">
-            Strict Mode
-          </label>
+      <div class="settings box parent">
+        <div class="child">
+          <div class="checkbox strict-tgl">
+            <label>
+              <input type="checkbox" data-toggle="toggle" data-onstyle="info">
+              Strict Mode
+            </label>
+          </div>
           <button type="button" class="btn btn-primary restart">
             <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Restart
           </button>
-           
-        </div>
-      </div>
+        </div> <!-- child -->
+      </div> <!-- parent -->
+      
     </section>
 
     <section class="buttons">
