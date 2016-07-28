@@ -1,0 +1,63 @@
+body {
+  height: 100vh;
+  color: #fff;
+}
+.hints {
+  height: 50vh;
+  width: 100%;
+}
+.buttons {
+  height: 50vh;
+  width: 100%;
+  position: relative;
+}
+.buttons a {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  display: block;
+}
+.top-left-btn {
+  top: 0;
+  left: 0;
+  background-color: red;
+}
+.top-right-btn {
+  top: 0;
+  right: 0;
+  background-color: yellow;
+}
+.btm-left-btn {
+  bottom: 0;
+  left: 0;
+  background-color: greenyellow;
+}
+.btm-right-btn {
+  bottom: 0;
+  right: 0;
+  background-color: deeppink;
+}
+.buttons a:hover, .buttons a:focus {
+  background-color: black;
+}
+.box {
+  height: 50%;
+  width: 100%;
+}
+.start {
+  background-color: aquamarine;
+}
+.info {
+  background-color: beige;
+}
+.settings {
+  background-color: rebeccapurple;  
+}
+h1, h2 {
+  margin-top: 0;
+  padding: 0.5em 0 0;
+}
+.restart {
+  display: block;
+  margin-top: 1em;
+}

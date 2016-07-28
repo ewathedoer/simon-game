@@ -9,15 +9,51 @@
   <meta name="description" content="Simon Game designed and implemented during FCC course by the doer">
   <meta name="keywords" content="simon game">
   <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
   <link rel="stylesheet" href="main.css">
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<body class="container-fluid text-center">
+  <div class="row">
+    <section class="hints">
+      <div class="start box">
+        <h1>Simon Game</h1>
+        <button id="play-btn" class="btn btn-success btn-lg" type="button">Start Playing</button>
+      </div>
+      
+      <div class="info box hidden">
+        <h2>Step <span id="step-count">1</span></h2>
+        <h3 id="not">Notification area</h3>
+      </div>
+      
+      <div class="settings box">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" data-toggle="toggle" data-onstyle="info">
+            Strict Mode
+          </label>
+          <button type="button" class="btn btn-primary restart">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Restart
+          </button>
+           
+        </div>
+      </div>
+    </section>
+
+    <section class="buttons">
+      <a href="#" class="top-left-btn">1</a>
+      <a href="#" class="top-right-btn">2</a>
+      <a href="#" class="btm-left-btn">3</a>
+      <a href="#" class="btm-right-btn">4</a>
+    </section>
+  </div>
+    
 
   
 <!-- js -->
 <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="main.js"></script>
   
 </body>
