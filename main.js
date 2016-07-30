@@ -1,11 +1,12 @@
 var stepNumber = 5;
-var notification = "";
+var not = "";
 var pattern = [];
 var patternByUser = [];
 var mode = "normal";
 var user;
 var computer;
 var turn = "C";
+var loopObject = null;
 
 // random from min-max excluding max
 function getRandomInt(min, max) {
@@ -14,21 +15,27 @@ function getRandomInt(min, max) {
 
 // preset the expected pattern for a round
 function generatePlayPattern() {
+  pattern = [];
   for(var i = 0; i<20; i++) {
     pattern.push(getRandomInt(1,5));
   }
+  console.log(pattern);
 }
 
 // setting timeout for playing sounds in a row in playPattern()
-function loopThroughArray(array, callback, interval) {
+function loopThroughArray(array, callbackElement, callbackFinished, interval) {
   var currentArray = array.slice(0, stepNumber);
-  var newLoopTimer = new LoopTimer(function (time) {
+  loopObject = new LoopTimer(function (time) {
     if (currentArray.length > 0) {
       var element = currentArray.shift();
-      callback(element, time - start);
+      callbackElement(element);
+    }
+    else {
+      callbackFinished();
+      loopObject.stop();
     }
   }, interval);
-  var start = newLoopTimer.start();
+  var start = loopObject.start();
 };
 
 // Timer 
@@ -64,21 +71,30 @@ function LoopTimer(render, interval) {
 }
 
 function playPattern() {
-  //for (var i = 0; i < stepNumber; i++) {
-    loopThroughArray(pattern, function (arrayElement, loopTime) {
-      $("#btn-" + arrayElement).trigger("play");
-      console.log(arrayElement);  
-    }, 1000);
-
-  //}
+  loopThroughArray(pattern, function (arrayElement) {
+    // this part is executed for each pattern element
+    $("#btn-" + arrayElement).trigger("play");
+    console.log(arrayElement);  
+  }, function() {
+    // this part is executed when pattern play has finished
+    console.log("loop finished");
+    $(".buttons a").removeClass("disabled");
+  }, 1000);
+  // prevent user from clicking while pattern being played
+  $(".buttons a").addClass("disabled");
 }
 
-function compiMove() {
+function displayNotification() {
   
 }
 
-function reset() {
-  
+function restart() {
+  // stop previous pattern
+  loopObject.stop();
+
+  generatePlayPattern();
+  stepNumber = 1;
+  playPattern();
 }
 
 function timeOver() {
@@ -92,18 +108,35 @@ function strictMode() {
 
 
 $(document).ready(function() {
+  generatePlayPattern();
+  
   $("#play-btn").on("click", function() {
     $(".start").addClass("hidden");
     $(".info").removeClass("hidden");
+    
+    playPattern();
   });
   
   // trigger sound while the buttons clicked
   $(".buttons a").on("click", function() {
-    $("#"+$(this).data("id")).trigger("play");
+    if ($(".buttons a").hasClass("disabled")) { 
+      return false;
+    } else {
+      $("#"+$(this).data("id")).trigger("play");
+      console.log($("#"+$(this).data("id")));
+    }
   });
   
-  generatePlayPattern();
-  console.log(pattern);
+  // restart
+  $(".restart").on("click", function() {
+    restart();
+    $("#step-count").text(stepNumber);
+  })
   
-  playPattern();
+  $("#step-count").text(stepNumber);
+  $("#not").text(not);
+  
+  
+  
+  
 });

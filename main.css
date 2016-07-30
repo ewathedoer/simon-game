@@ -40,6 +40,10 @@ body {
 .buttons a:hover, .buttons a:focus {
   background-color: black;
 }
+a.disabled:hover, a.disabled:focus {
+  background-color: lightgrey;
+  cursor: default;
+}
 .box {
   height: 50%;
   width: 100%;
