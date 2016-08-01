@@ -1,10 +1,11 @@
-var stepNumber = 19;
+var stepNumber = 1;
 var not = "";
 var pattern = [];
 var patternByUser = [];
 var mode = "normal";
 var usersTurn = false;
 var loopObject = null;
+var mistakenSound = false;
 
 //random from min-max excluding max
 function getRandomInt(min, max) {
@@ -71,6 +72,14 @@ function LoopTimer(render, interval) {
 function playPattern() {
   $("#step-count").text(stepNumber);
   
+  if (stepNumber == 1) {
+    displayNotification(mistakenSound ? "This sound." : "Let's start!");
+  } else if(stepNumber <= 10) {
+    displayNotification(mistakenSound ? "Listen again!" : "Great, listen now!");
+  } else if (stepNumber > 10 && stepNumber <= 20) {
+    displayNotification(mistakenSound ? "Try harder, listen!" : "You're better and better!");
+  } 
+  
   loopThroughArray(pattern, function (arrayElement) {
     // this part is executed for each pattern element
     $("#btn-" + arrayElement).trigger("play");
@@ -78,6 +87,7 @@ function playPattern() {
   }, function() {
     // this part is executed when pattern play has finished
     console.log("loop finished");
+    mistakenSound = false;
     displayNotification("Good luck!");
     patternByUser = [];
     $(".buttons a").removeClass("disabled");
@@ -128,7 +138,6 @@ $(document).ready(function() {
     $(".info").removeClass("hidden");
     
     playPattern();
-    displayNotification("Good luck!");
   });
   
   //trigger sound while the buttons clicked
@@ -153,21 +162,42 @@ $(document).ready(function() {
             differentElement = true;
           }   
         }
-        if (!differentElement) {
+        
+        //it's the last step and a user got it right
+        if (!differentElement && stepNumber == 20) {
+          displayNotification("Congratulations! You won!");
+          
+          setTimeout(function() {
+            $("#victory").trigger("play");
+          }, 1000);
+          
+          setTimeout(function(){
+            restart();
+          }, 9500);
+        } 
+        //few steps are still missing and a user got correct
+        else if (!differentElement && stepNumber < 20) {
           console.log(differentElement);
           //add new step and play the pattern
-          if (stepNumber < 20) {
-            stepNumber += 1;
-          }
+          stepNumber += 1;
+          
           setTimeout(function() {
             playPattern();
           }, 1000);
-        } else {
-          //repeat the pattern
+        } 
+        //few steps are still missing and a user made a mistake (regular mode)
+        else {
+          mistakenSound = true;
+
+          //notify about mistake and repeat the pattern
+          setTimeout(function() {
+            $("#mistake").trigger("play");
+            displayNotification("Upss...");
+          }, 1000);
+
           setTimeout(function() {
             playPattern();
-          }, 1000);
-          displayNotification("Upss... listen again!");
+          }, 3000);
         }
         
       }
