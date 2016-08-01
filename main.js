@@ -1,28 +1,26 @@
-var stepNumber = 5;
+var stepNumber = 19;
 var not = "";
 var pattern = [];
 var patternByUser = [];
 var mode = "normal";
-var user;
-var computer;
-var turn = "C";
+var usersTurn = false;
 var loopObject = null;
 
-// random from min-max excluding max
+//random from min-max excluding max
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-// preset the expected pattern for a round
+//preset the expected pattern for a round
 function generatePlayPattern() {
   pattern = [];
-  for(var i = 0; i<20; i++) {
+  for(var i=0; i<20; i++) {
     pattern.push(getRandomInt(1,5));
   }
   console.log(pattern);
 }
 
-// setting timeout for playing sounds in a row in playPattern()
+//setting timeout for playing sounds in a row in playPattern()
 function loopThroughArray(array, callbackElement, callbackFinished, interval) {
   var currentArray = array.slice(0, stepNumber);
   loopObject = new LoopTimer(function (time) {
@@ -38,7 +36,7 @@ function loopThroughArray(array, callbackElement, callbackFinished, interval) {
   var start = loopObject.start();
 };
 
-// Timer 
+//Timer 
 function LoopTimer(render, interval) {
   var timeout;
   var lastTime;
@@ -71,6 +69,8 @@ function LoopTimer(render, interval) {
 }
 
 function playPattern() {
+  $("#step-count").text(stepNumber);
+  
   loopThroughArray(pattern, function (arrayElement) {
     // this part is executed for each pattern element
     $("#btn-" + arrayElement).trigger("play");
@@ -78,14 +78,17 @@ function playPattern() {
   }, function() {
     // this part is executed when pattern play has finished
     console.log("loop finished");
+    displayNotification("Good luck!");
+    patternByUser = [];
     $(".buttons a").removeClass("disabled");
+    usersTurn = true;
   }, 1000);
-  // prevent user from clicking while pattern being played
+  //prevent user from clicking while pattern being played
   $(".buttons a").addClass("disabled");
 }
 
-function displayNotification() {
-  
+function displayNotification(hint) {
+  $("#not").text(hint);
 }
 
 function restart() {
@@ -95,6 +98,7 @@ function restart() {
   generatePlayPattern();
   stepNumber = 1;
   playPattern();
+  patternByUser = [];
 }
 
 function timeOver() {
@@ -102,6 +106,15 @@ function timeOver() {
 }
 
 function strictMode() {
+  
+}
+
+function nowUser() {
+  //check if they can play
+  
+  //each move checked with pattern
+  
+  //next move added
   
 }
 
@@ -115,27 +128,63 @@ $(document).ready(function() {
     $(".info").removeClass("hidden");
     
     playPattern();
+    displayNotification("Good luck!");
   });
   
-  // trigger sound while the buttons clicked
+  //trigger sound while the buttons clicked
   $(".buttons a").on("click", function() {
     if ($(".buttons a").hasClass("disabled")) { 
       return false;
-    } else {
-      $("#"+$(this).data("id")).trigger("play");
+    } else if (usersTurn) {
+      
+      //when user starts clicking the buttons patternByUser equals an empty array
+      if (patternByUser.length < stepNumber) {
+        $("#"+$(this).data("id")).trigger("play");
+      //save pattern numbers played by a user
+        patternByUser.push(parseInt($(this).data("id").slice(4)));
+      } 
+      
+      if (patternByUser.length == stepNumber) {
+        $(".buttons a").addClass("disabled");
+        //check the user's choices with the pattern
+        var differentElement = false;
+        for (var i=0; i<patternByUser.length; i++) {
+          if (patternByUser[i] != pattern[i]) {
+            differentElement = true;
+          }   
+        }
+        if (!differentElement) {
+          console.log(differentElement);
+          //add new step and play the pattern
+          if (stepNumber < 20) {
+            stepNumber += 1;
+          }
+          setTimeout(function() {
+            playPattern();
+          }, 1000);
+        } else {
+          //repeat the pattern
+          setTimeout(function() {
+            playPattern();
+          }, 1000);
+          displayNotification("Upss... listen again!");
+        }
+        
+      }
+      
+      
       console.log($("#"+$(this).data("id")));
     }
   });
   
-  // restart
+  //restart
   $(".restart").on("click", function() {
     restart();
     $("#step-count").text(stepNumber);
   })
   
   $("#step-count").text(stepNumber);
-  $("#not").text(not);
-  
+  displayNotification();
   
   
   
