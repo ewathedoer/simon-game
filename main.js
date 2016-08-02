@@ -6,6 +6,7 @@ var mode = "normal";
 var usersTurn = false;
 var loopObject = null;
 var mistakenSound = false;
+var strictFlag = false;
 
 //random from min-max excluding max
 function getRandomInt(min, max) {
@@ -45,20 +46,20 @@ function LoopTimer(render, interval) {
   this.start = startLoop;
   this.stop = stopLoop;
 
-  // Start Loop
+  //Start Loop
   function startLoop() {
     timeout = setTimeout(createLoop, 0);
     lastTime = Date.now();
     return lastTime;
   }
 
-  // Stop Loop
+  //Stop Loop
   function stopLoop() {
     clearTimeout(timeout);
     return lastTime;
   }
 
-  // The actual loop
+  //The actual loop
   function createLoop() {
     var thisTime = Date.now();
     var loopTime = thisTime - lastTime;
@@ -81,11 +82,11 @@ function playPattern() {
   } 
   
   loopThroughArray(pattern, function (arrayElement) {
-    // this part is executed for each pattern element
+    //this part is executed for each pattern element
     $("#btn-" + arrayElement).trigger("play");
     console.log(arrayElement);  
   }, function() {
-    // this part is executed when pattern play has finished
+    //this part is executed when pattern play has finished
     console.log("loop finished");
     mistakenSound = false;
     displayNotification("Good luck!");
@@ -101,31 +102,23 @@ function displayNotification(hint) {
   $("#not").text(hint);
 }
 
-function restart() {
-  // stop previous pattern
+function restart(restartBtnPressed) {
+  //stop previous pattern
   loopObject.stop();
 
+  mistakenSound = false;
+  
+  //mode restart only after restart button pressed
+  
+  if (restartBtnPressed) {
+    strictFlag = false;
+    $('.strict-tgl input[type=checkbox]').bootstrapToggle('off');
+  }
+  
   generatePlayPattern();
   stepNumber = 1;
   playPattern();
   patternByUser = [];
-}
-
-function timeOver() {
-  
-}
-
-function strictMode() {
-  
-}
-
-function nowUser() {
-  //check if they can play
-  
-  //each move checked with pattern
-  
-  //next move added
-  
 }
 
 
@@ -172,7 +165,7 @@ $(document).ready(function() {
           }, 1000);
           
           setTimeout(function(){
-            restart();
+            restart(false);
           }, 9500);
         } 
         //few steps are still missing and a user got correct
@@ -195,9 +188,18 @@ $(document).ready(function() {
             displayNotification("Upss...");
           }, 1000);
 
-          setTimeout(function() {
-            playPattern();
-          }, 3000);
+          //mode variations
+          if (strictFlag) {
+            setTimeout(function() {
+              restart(false);  
+            }, 2000);
+            
+          } else {
+            setTimeout(function() {
+              playPattern();
+            }, 3000);
+          }
+          
         }
         
       }
@@ -209,13 +211,16 @@ $(document).ready(function() {
   
   //restart
   $(".restart").on("click", function() {
-    restart();
+    restart(true);
     $("#step-count").text(stepNumber);
   })
   
   $("#step-count").text(stepNumber);
   displayNotification();
   
-  
+  //strict mode toggle
+  $('.strict-tgl input[type=checkbox]').on("change", function() {
+    strictFlag = $(this).prop('checked');
+  });
   
 });
