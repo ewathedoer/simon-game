@@ -84,6 +84,10 @@ function playPattern() {
   loopThroughArray(pattern, function (arrayElement) {
     //this part is executed for each pattern element
     $("#btn-" + arrayElement).trigger("play");
+    $(".btn-" + arrayElement).addClass("animated flash attention-btn");
+    setTimeout(function(){
+      $(".btn-" + arrayElement).removeClass("animated flash attention-btn");
+    }, 500);
     console.log(arrayElement);  
   }, function() {
     //this part is executed when pattern play has finished
@@ -142,6 +146,12 @@ $(document).ready(function() {
       //when user starts clicking the buttons patternByUser equals an empty array
       if (patternByUser.length < stepNumber) {
         $("#"+$(this).data("id")).trigger("play");
+            
+        $("."+$(this).data("id")).addClass("animated flash attention-btn");
+        setTimeout(function(){
+          $("."+$(this).data("id")).removeClass("animated flash attention-btn");
+        }, 500);
+        
       //save pattern numbers played by a user
         patternByUser.push(parseInt($(this).data("id").slice(4)));
       } 
