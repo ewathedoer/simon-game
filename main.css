@@ -101,10 +101,13 @@ h1, h2 {
   padding-left: 0;
   padding-right: 0;
 }
+.invisible {
+  visibility: hidden;
+}
 
 /* media queries */
 /* from tablets horizontally */
-@media screen and (min-width: 769px) {
+@media screen and (min-width: 769px and max-width: 1024px) {
   .hints {
     height: 100vh;
     width: 50%;
@@ -129,4 +132,49 @@ h1, h2 {
   .buttons a:hover, .buttons a:focus {
     background-color: transparent;
   }
+}
+/* large screens */
+@media screen and (min-width: 1025px) {
+  .hints {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -150px 0 0 -150px;
+    z-index: 20;
+    height: 300px;
+    width: 300px;
+  }
+  .hints .settings {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 50%;
+    height: 50%;
+    border-radius: 0 0 10px 10px;
+  }
+  .hints .start, .hints .info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 50%;
+    height: 50%;
+    border-radius: 10px 10px 0 0;
+  }
+  .buttons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -300px 0 0 -300px;
+    width: 600px;
+    height: 600px;
+  }
+  .box {
+    height: auto;
+    padding: 1em 0;
+    background-color: #558596;
+  }
+  
+  
 }

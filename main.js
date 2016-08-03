@@ -78,7 +78,7 @@ function playPattern() {
   } else if(stepNumber <= 10) {
     displayNotification(mistakenSound ? "Listen again!" : "Great, listen now!");
   } else if (stepNumber > 10 && stepNumber <= 20) {
-    displayNotification(mistakenSound ? "Try harder, listen!" : "You're better and better!");
+    displayNotification(mistakenSound ? "Try harder, listen!" : "You're good!");
   } 
   
   loopThroughArray(pattern, function (arrayElement) {
@@ -133,7 +133,7 @@ $(document).ready(function() {
   $("#play-btn").on("click", function() {
     $(".start").addClass("hidden");
     //show restart
-    $(".restart").removeClass("hidden");
+    $(".restart").removeClass("invisible");
   
     $(".info").removeClass("hidden");
     
@@ -172,7 +172,7 @@ $(document).ready(function() {
         
         //it's the last step and a user got it right
         if (!differentElement && stepNumber == 20) {
-          displayNotification("Congratulations! You won!");
+          displayNotification("Congrats! You won!");
           
           setTimeout(function() {
             $("#victory").trigger("play");
