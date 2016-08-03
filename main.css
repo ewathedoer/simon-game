@@ -43,22 +43,26 @@ body {
   right: 0;
   background-color: #b2b195;
 }
-.buttons a:hover, .buttons a:focus {
-  background-color: #cc5f79;
+.buttons {
+  background-color: #fff;
+}
+.buttons a:hover {
+  opacity: 0.75;
 }
 a.disabled:hover, a.disabled:focus {
-  background-color: lightgrey;
+  /*background-color: lightgrey;*/
   cursor: default;
 }
-a:visited {
+/*a:visited {
   background-color: transparent;
-}
+}*/
 .btn-info {
-  background-color: #cc5f79;
+  background-color: #ffed91;
+  color: #121212;
 }
 .btn-info:hover, btn-info:focus {
-  background-color: #f9ffd0;
-  color: #cc5f79;
+  background-color: #ffed91;
+  color: #fff;
 }
 .box {
   height: 50%;
@@ -67,10 +71,7 @@ a:visited {
 .start {
   background-color: #cc5f79;
 }
-.info {
-  background-color: #48717f;
-}
-.settings {
+.info, .settings {
   background-color: #558596;  
 }
 h1, h2 {
@@ -84,8 +85,12 @@ h1, h2 {
   background-color: transparent;
   border-color: #fff;
 }
-.ghost-btn:hover, .ghost-btn:active, .ghost-btn:focus {
-  color: #f9ffd0;
+.ghost-btn:focus, .ghost-btn:active {
+  color: #fff;
+}
+.ghost-btn:hover {
+  border: 1px solid #ffed91;
+  color: #ffed91;
 }
 .strict-tgl {
   margin-top: 0;
@@ -128,13 +133,38 @@ h1, h2 {
     width: 50%;
   }
 }
-@media screen and (max-width:1024px) {
-  .buttons a:hover, .buttons a:focus {
-    background-color: transparent;
+/* tablets vertically */
+@media screen and (min-width:768px) and (max-width:1023px) {
+  h1 {
+    margin-bottom: 1em;
+  }
+  h2 {
+    font-size: 3em;
+  }
+  h3 {
+    font-size: 2em;
+  }
+  .settings {
+    font-size: 2em;
+  }
+  #play-btn {
+    font-size: 4em;
+  }
+  .restart {
+    font-size: 1em;
   }
 }
 /* large screens */
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1024px) {
+  body {
+    background-color: #f9ffd0;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  #play-btn {
+    font-size: 1.5em;
+  }
   .hints {
     position: absolute;
     top: 50%;
@@ -169,6 +199,7 @@ h1, h2 {
     margin: -300px 0 0 -300px;
     width: 600px;
     height: 600px;
+    box-shadow: 10px 10px 5px #888888;
   }
   .box {
     height: auto;

@@ -86,7 +86,7 @@ function playPattern() {
     $("#btn-" + arrayElement).trigger("play");
     $(".btn-" + arrayElement).addClass("animated flash attention-btn");
     setTimeout(function(){
-      $(".btn-" + arrayElement).removeClass("animated flash attention-btn");
+      $(".buttons a").removeClass("animated flash attention-btn");
     }, 500);
     console.log(arrayElement);  
   }, function() {
@@ -153,7 +153,7 @@ $(document).ready(function() {
             
         $("."+$(this).data("id")).addClass("animated flash attention-btn");
         setTimeout(function(){
-          $("."+$(this).data("id")).removeClass("animated flash attention-btn");
+          $(".buttons a").removeClass("animated flash attention-btn");
         }, 500);
         
       //save pattern numbers played by a user
