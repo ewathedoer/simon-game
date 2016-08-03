@@ -132,10 +132,14 @@ $(document).ready(function() {
   
   $("#play-btn").on("click", function() {
     $(".start").addClass("hidden");
+    //show restart
+    $(".restart").removeClass("hidden");
+  
     $(".info").removeClass("hidden");
     
     playPattern();
   });
+  
   
   //trigger sound while the buttons clicked
   $(".buttons a").on("click", function() {

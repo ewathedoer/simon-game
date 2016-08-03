@@ -1,3 +1,9 @@
+/* 
+color palette:
+
+*/
+
+
 body {
   height: 100vh;
   color: #fff;
@@ -20,42 +26,52 @@ body {
 .top-left-btn {
   top: 0;
   left: 0;
-  background-color: red;
+  background-color: #ffceda;
 }
 .top-right-btn {
   top: 0;
   right: 0;
-  background-color: yellow;
+  background-color: #90e3ff;
 }
 .btm-left-btn {
   bottom: 0;
   left: 0;
-  background-color: greenyellow;
+  background-color: #ccc55f;
 }
 .btm-right-btn {
   bottom: 0;
   right: 0;
-  background-color: deeppink;
+  background-color: #b2b195;
 }
 .buttons a:hover, .buttons a:focus {
-  background-color: black;
+  background-color: #cc5f79;
 }
 a.disabled:hover, a.disabled:focus {
   background-color: lightgrey;
   cursor: default;
+}
+a:visited {
+  background-color: transparent;
+}
+.btn-info {
+  background-color: #cc5f79;
+}
+.btn-info:hover, btn-info:focus {
+  background-color: #f9ffd0;
+  color: #cc5f79;
 }
 .box {
   height: 50%;
   width: 100%;
 }
 .start {
-  background-color: aquamarine;
+  background-color: #cc5f79;
 }
 .info {
-  background-color: darkgrey;
+  background-color: #48717f;
 }
 .settings {
-  background-color: rebeccapurple;  
+  background-color: #558596;  
 }
 h1, h2 {
   margin-top: 0;
@@ -63,6 +79,13 @@ h1, h2 {
 }
 .restart {
   margin-top: 1em;
+}
+.ghost-btn {
+  background-color: transparent;
+  border-color: #fff;
+}
+.ghost-btn:hover, .ghost-btn:active, .ghost-btn:focus {
+  color: #f9ffd0;
 }
 .strict-tgl {
   margin-top: 0;
@@ -100,5 +123,10 @@ h1, h2 {
   .buttons {
     height: 100vh;
     width: 50%;
+  }
+}
+@media screen and (max-width:1024px) {
+  .buttons a:hover, .buttons a:focus {
+    background-color: transparent;
   }
 }
