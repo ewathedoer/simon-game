@@ -96,6 +96,7 @@ function playPattern() {
     usersTurn = true;
   }, 1000);
   //prevent user from clicking while pattern being played
+  usersTurn = false;
   $(".buttons a").addClass("disabled");
 }
 
@@ -122,6 +123,31 @@ function restart(restartBtnPressed) {
   patternByUser = [];
 }
 
+function userMadeMistake() {
+  //prevent user from clicking while pattern being played
+  usersTurn = false;
+  $(".buttons a").addClass("disabled");
+  
+  mistakenSound = true;
+
+  //notify about mistake and repeat the pattern
+  setTimeout(function() {
+    $("#mistake").trigger("play");
+    displayNotification("Upss...");
+  }, 1000);
+
+  //mode variations
+  if (strictFlag) {
+    setTimeout(function() {
+      restart(false);  
+    }, 2000);
+
+  } else {
+    setTimeout(function() {
+      playPattern();
+    }, 3000);
+  }
+}
 
 
 $(document).ready(function() {
@@ -157,15 +183,21 @@ $(document).ready(function() {
         patternByUser.push(parseInt($(this).data("id").slice(4)));
       } 
       
+      //check the user's choices with the pattern
+      var differentElement = false;
+      for (var i=0; i<patternByUser.length; i++) {
+        if (patternByUser[i] != pattern[i]) {
+          differentElement = true;
+        }   
+      }
+      //few steps are still missing and a user made a mistake (regular mode)
+      if (differentElement) {
+        userMadeMistake();
+        return false;
+      }
+      
       if (patternByUser.length == stepNumber) {
         $(".buttons a").addClass("disabled");
-        //check the user's choices with the pattern
-        var differentElement = false;
-        for (var i=0; i<patternByUser.length; i++) {
-          if (patternByUser[i] != pattern[i]) {
-            differentElement = true;
-          }   
-        }
         
         //it's the last step and a user got it right
         if (!differentElement && stepNumber == 20) {
@@ -187,29 +219,6 @@ $(document).ready(function() {
           setTimeout(function() {
             playPattern();
           }, 1000);
-        } 
-        //few steps are still missing and a user made a mistake (regular mode)
-        else {
-          mistakenSound = true;
-
-          //notify about mistake and repeat the pattern
-          setTimeout(function() {
-            $("#mistake").trigger("play");
-            displayNotification("Upss...");
-          }, 1000);
-
-          //mode variations
-          if (strictFlag) {
-            setTimeout(function() {
-              restart(false);  
-            }, 2000);
-            
-          } else {
-            setTimeout(function() {
-              playPattern();
-            }, 3000);
-          }
-          
         } 
       }
     }
