@@ -115,6 +115,9 @@ h1, h2 {
 .invisible {
   visibility: hidden;
 }
+.checkbox label {
+  padding-left: 5px;
+}
 
 /* media queries */
 /* from tablets horizontally */
@@ -170,6 +173,11 @@ h1, h2 {
   }
   #play-btn {
     font-size: 1.5em;
+    background-color: #ffed91;
+    color: #000;
+  }
+  #play-btn:hover {
+    background-color: #f9ffd0;
   }
   .hints {
     position: absolute;
