@@ -82,7 +82,8 @@ function playPattern() {
   
   loopThroughArray(pattern, function (arrayElement) {
     //this part is executed for each pattern element
-    $("#btn-" + arrayElement).trigger("play");
+    playAudio($("#btn-" + arrayElement));
+
     $(".btn-" + arrayElement).addClass("animated flash attention-btn");
     setTimeout(function(){
       $(".buttons a").removeClass("animated flash attention-btn");
@@ -203,7 +204,6 @@ $(document).ready(function() {
       
       //when user starts clicking the buttons patternByUser equals an empty array
       if (patternByUser.length < stepNumber) {
-        //$("#"+$(this).data("id")).trigger("play");
         playAudio($("#"+$(this).data("id")));
             
         $("."+$(this).data("id")).addClass("animated flash attention-btn");
