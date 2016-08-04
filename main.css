@@ -200,12 +200,24 @@ h1, h2 {
     width: 600px;
     height: 600px;
     box-shadow: 5px 5px 5px #888888;
+    border-radius: 10px;
   }
   .box {
     height: auto;
     padding: 1em 0;
     background-color: #558596;
   }
-  
+  .top-left-btn {
+    border-radius: 10px 0 0;
+  }
+  .top-right-btn {
+    border-radius: 0 10px 0 0;
+  }
+  .btm-left-btn {
+    border-radius: 0 0 0 10px;
+  }
+  .btm-right-btn {
+    border-radius: 0 0 10px 0;
+  }
   
 }
