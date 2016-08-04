@@ -1,12 +1,11 @@
-/* 
-color palette:
-
+/* color palette:
+action-color: #ffed91;
 */
-
 
 body {
   height: 100vh;
   color: #fff;
+  font-family: 'Raleway', sans-serif;
 }
 .hints {
   height: 50vh;
@@ -50,12 +49,8 @@ body {
   opacity: 0.75;
 }
 a.disabled:hover, a.disabled:focus {
-  /*background-color: lightgrey;*/
   cursor: default;
 }
-/*a:visited {
-  background-color: transparent;
-}*/
 .btn-info {
   background-color: #ffed91;
   color: #121212;
@@ -63,6 +58,16 @@ a.disabled:hover, a.disabled:focus {
 .btn-info:hover, btn-info:focus {
   background-color: #ffed91;
   color: #fff;
+}
+.btn-default.active {
+  background-color: rgba(85,133,150,0.9);
+  border-color: #fff;
+  color: #fff;
+}
+.btn-default.active:hover {
+  background-color: rgba(85,133,150,0.9);
+  border-color: #ffed91;
+  color: #ffed91;
 }
 .box {
   height: 50%;

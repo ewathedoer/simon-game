@@ -19,7 +19,6 @@ function generatePlayPattern() {
   for(var i=0; i<20; i++) {
     pattern.push(getRandomInt(1,5));
   }
-  console.log(pattern);
 }
 
 //setting timeout for playing sounds in a row in playPattern()
@@ -87,11 +86,9 @@ function playPattern() {
     $(".btn-" + arrayElement).addClass("animated flash attention-btn");
     setTimeout(function(){
       $(".buttons a").removeClass("animated flash attention-btn");
-    }, 500);
-    console.log(arrayElement);  
+    }, 500); 
   }, function() {
     //this part is executed when pattern play has finished
-    console.log("loop finished");
     mistakenSound = false;
     displayNotification("Good luck!");
     patternByUser = [];
@@ -184,7 +181,6 @@ $(document).ready(function() {
         } 
         //few steps are still missing and a user got correct
         else if (!differentElement && stepNumber < 20) {
-          console.log(differentElement);
           //add new step and play the pattern
           stepNumber += 1;
           
@@ -214,10 +210,8 @@ $(document).ready(function() {
             }, 3000);
           }
           
-        }
-        
+        } 
       }
-      
     }
   });
   
