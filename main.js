@@ -149,9 +149,40 @@ function userMadeMistake() {
   }
 }
 
+//allow to play the same sound simultaneously 
+//hack based on the accepted answer to http://stackoverflow.com/questions/6893080/html5-audio-play-sound-repeatedly-on-click-regardless-if-previous-iteration-h
+function playAudio(audioElement) {
+  var audio = document.createElement("audio");
+  audio.src = audioElement.attr("src");
+  audio.addEventListener("ended", function() {
+    document.body.removeChild(this);
+  }, false);
+  document.body.appendChild(audio);
+  audio.play();
+}
+
+//make toggle accessible
+function accessibleToggle(checkbox, ariaLabel, label) {
+  var targetItem = checkbox.parent(".toggle.btn");
+  targetItem.attr({
+    "tabindex": 1,
+    "aria-label": ariaLabel
+  });
+  targetItem.on("keyup", function(e) {
+    //keyup in ASCII code == which
+    if(e.which == 13) {
+      checkbox.bootstrapToggle("toggle");  
+    }
+  });
+  label.on("click", function() {
+    checkbox.bootstrapToggle("toggle"); 
+  });
+}
+
 
 $(document).ready(function() {
   generatePlayPattern();
+  accessibleToggle($(".strict-tgl input"), "strict mode", $("#toggle-label"));
   
   $("#play-btn").on("click", function() {
     $(".start").addClass("hidden");
@@ -172,7 +203,8 @@ $(document).ready(function() {
       
       //when user starts clicking the buttons patternByUser equals an empty array
       if (patternByUser.length < stepNumber) {
-        $("#"+$(this).data("id")).trigger("play");
+        //$("#"+$(this).data("id")).trigger("play");
+        playAudio($("#"+$(this).data("id")));
             
         $("."+$(this).data("id")).addClass("animated flash attention-btn");
         setTimeout(function(){

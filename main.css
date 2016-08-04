@@ -45,7 +45,7 @@ body {
 .buttons {
   background-color: #fff;
 }
-.buttons a:hover {
+.buttons a:hover:not(.disabled) {
   opacity: 0.75;
 }
 a.disabled:hover, a.disabled:focus {
@@ -64,6 +64,7 @@ a.disabled:hover, a.disabled:focus {
   border-color: #fff;
   color: #fff;
 }
+/* while the pattern is presented a user can't see any changes on buttons hovering them */
 .btn-default.active:hover {
   background-color: rgba(85,133,150,0.9);
   border-color: #ffed91;
