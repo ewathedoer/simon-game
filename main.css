@@ -199,7 +199,7 @@ h1, h2 {
     margin: -300px 0 0 -300px;
     width: 600px;
     height: 600px;
-    box-shadow: 10px 10px 5px #888888;
+    box-shadow: 5px 5px 5px #888888;
   }
   .box {
     height: auto;

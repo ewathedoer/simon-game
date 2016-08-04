@@ -180,7 +180,7 @@ $(document).ready(function() {
           
           setTimeout(function(){
             restart(false);
-          }, 9500);
+          }, 7000);
         } 
         //few steps are still missing and a user got correct
         else if (!differentElement && stepNumber < 20) {
@@ -218,8 +218,6 @@ $(document).ready(function() {
         
       }
       
-      
-      console.log($("#"+$(this).data("id")));
     }
   });
   
