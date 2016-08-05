@@ -7,6 +7,7 @@ var usersTurn = false;
 var loopObject = null;
 var mistakenSound = false;
 var strictFlag = false;
+var playAudioElement = null;
 
 //random from min-max excluding max
 function getRandomInt(min, max) {
@@ -82,7 +83,7 @@ function playPattern() {
   
   loopThroughArray(pattern, function (arrayElement) {
     //this part is executed for each pattern element
-    playAudio($("#btn-" + arrayElement));
+    playAudio($("#btn-" + arrayElement), false);
 
     $(".btn-" + arrayElement).addClass("animated flash attention-btn");
     setTimeout(function(){
@@ -133,7 +134,7 @@ function userMadeMistake() {
 
   //notify about mistake and repeat the pattern
   setTimeout(function() {
-    $("#mistake").trigger("play");
+    playAudio($("#mistake"), false);
     displayNotification("Upss...");
   }, 1000);
 
@@ -150,16 +151,21 @@ function userMadeMistake() {
   }
 }
 
-//allow to play the same sound simultaneously 
-//hack based on the accepted answer to http://stackoverflow.com/questions/6893080/html5-audio-play-sound-repeatedly-on-click-regardless-if-previous-iteration-h
-function playAudio(audioElement) {
-  var audio = document.createElement("audio");
-  audio.src = audioElement.attr("src");
-  audio.addEventListener("ended", function() {
-    document.body.removeChild(this);
-  }, false);
-  document.body.appendChild(audio);
-  audio.play();
+//allow to play the same or different sound simultaneously after being clicked by a user quickly
+//based on the accepted answer to http://stackoverflow.com/questions/6893080/html5-audio-play-sound-repeatedly-on-click-regardless-if-previous-iteration-h
+function playAudio(audioElement, clickedByUser) {
+  if (clickedByUser) {
+    var audio = document.createElement("audio");
+    audio.src = audioElement.data("src");
+    audio.addEventListener("ended", function() {
+      document.body.removeChild(this);
+    }, false);
+    document.body.appendChild(audio);
+    audio.play();
+  } else {
+    playAudioElement.src = audioElement.data("src");
+    playAudioElement.play();
+  }
 }
 
 //make toggle accessible
@@ -187,6 +193,11 @@ $(document).ready(function() {
   
   $("#play-btn").on("click", function() {
     $(".start").addClass("hidden");
+    //gaining audio control on mobile
+    if (!playAudioElement) {
+      playAudioElement = document.getElementById("btn-play");
+      playAudioElement.play();
+    }
     //show restart
     $(".restart").removeClass("invisible");
   
@@ -204,7 +215,7 @@ $(document).ready(function() {
       
       //when user starts clicking the buttons patternByUser equals an empty array
       if (patternByUser.length < stepNumber) {
-        playAudio($("#"+$(this).data("id")));
+        playAudio($("#"+$(this).data("id")), true);
             
         $("."+$(this).data("id")).addClass("animated flash attention-btn");
         setTimeout(function(){
@@ -236,7 +247,7 @@ $(document).ready(function() {
           displayNotification("Congrats! You won!");
           
           setTimeout(function() {
-            $("#victory").trigger("play");
+            playAudio($("#victory"), false);
           }, 1000);
           
           setTimeout(function(){
