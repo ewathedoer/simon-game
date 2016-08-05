@@ -193,9 +193,10 @@ h1, h2 {
     left: 0;
     right: 0;
     bottom: 0;
-    top: 50%;
-    height: 50%;
     border-radius: 0 0 10px 10px;
+    /* fix for IE from 50-50 */
+    top: 49.5%;
+    height: 50.5%;
   }
   .hints .start, .hints .info {
     position: absolute;
