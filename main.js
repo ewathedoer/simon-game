@@ -252,7 +252,7 @@ $(document).ready(function() {
           
           setTimeout(function(){
             restart(false);
-          }, 7000);
+          }, 9000);
         } 
         //few steps are still missing and a user got correct
         else if (!differentElement && stepNumber < 20) {
